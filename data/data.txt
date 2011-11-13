@@ -1,0 +1,9 @@
+{
+  "alphabet": [
+    { "letter": "A", "code": ".-", "audio": 0 },
+    { "letter": "B", "code": "-...", "audio": 1 },
+    { "letter": "C", "code": "-.-.", "audio": 1 },
+    { "letter": "D", "code": "-..", "audio": 0 },
+    { "letter": "E", "code": ".", "audio": 0 }
+  ]
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script type="text/javascript" src="js/vendor/handlebars.1.0.0.beta.3.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.min.js"></script>
+    <title>test title</title>
+  </head>
+
+  <body>
+    <!-- place holder -->
+    <div id="chart"></div>
+
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+        var templateURL = 'http://localhost:3001/js/templates/test2.handlebars',
+            dataURL = 'http://localhost:3001/data/data2.txt';
+      
+        // handlebar helpers
+        Handlebars.registerHelper('audio_link', function(context)
+        {
+          if (context.audio)
+            return "<a href=\"http://google.com\">Listen</a>";
+          else
+            return "N/A";
+        });
+
+        Handlebars.registerHelper('link_to', function(context)
+        {
+          return "<a href='" + context.url + "'>" + context.body + "</a>";
+        });
+
+        Handlebars.registerHelper('link', function(context, fn) {
+				  return '<a href="/people/' + this.__get__("id") + '">' + fn(this) + '</a>';
+				});
+
+        function fetchResource(path, callback)
+        {
+          $.ajax(
+          {
+            url: path,
+            success: function(data)
+            {
+              if (callback)
+                callback(data);
+            }
+          });
+        }
+
+        fetchResource(templateURL, function(template)
+        {
+          // complie template
+          var compiledTemplate  = Handlebars.compile(template);
+          fetchResource(dataURL, function(data)
+          {
+            var resultHTML = compiledTemplate(JSON.parse(data));
+            $("#chart").html(resultHTML);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
