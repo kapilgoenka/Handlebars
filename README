@@ -1,0 +1,3 @@
+js/templates directory contains handlebar templates
+data directory contains the context for the templates
+(data[i].txt contains context for template[i].handlebars)
